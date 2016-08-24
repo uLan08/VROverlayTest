@@ -5,43 +5,14 @@ using Valve.VR;
 public class Overlay : MonoBehaviour {
 
     public Texture overlayTexture;
-
-    SteamVR_TrackedObject trackedObj;
-    SteamVR_Controller.Device device;
-    bool hasOverlay = false;
     ulong overlayHandle = OpenVR.k_ulOverlayHandleInvalid;
-
-    void Awake()
-    {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
-    }
 
 	void Start ()
     {
 	
 	}
-	
-	void Update ()
-    {
-        device = SteamVR_Controller.Input((int)trackedObj.index);
-        if (device.GetPressUp(SteamVR_Controller.ButtonMask.System))
-        {
-            Debug.Log("pressed system button");
-            if (!hasOverlay)
-            {
-                createOverlay();
-                hasOverlay = true;
 
-            }
-            else
-            {
-                destroyOverlay();
-                hasOverlay = false;
-            }
-        }
-	}
-
-    void createOverlay()
+   public void createOverlay()
     {
         var steamvr = SteamVR.instance;
         var overlay = OpenVR.Overlay;
@@ -51,7 +22,7 @@ public class Overlay : MonoBehaviour {
         if (error == EVROverlayError.None) return;
     }
 
-    void destroyOverlay()
+    public void destroyOverlay()
     {
         if (overlayHandle == OpenVR.k_ulOverlayHandleInvalid) return;
         var overlay = OpenVR.Overlay;
