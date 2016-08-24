@@ -16,9 +16,9 @@ public class ControllerScript : MonoBehaviour {
     void Update()
     {
         device = SteamVR_Controller.Input((int)trackedObj.index);
-        if (device.GetPressUp(SteamVR_Controller.ButtonMask.System))
+        if (device.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu))
         {
-            Debug.Log("pressed system button");
+            Debug.Log("pressed menu button");
             if (!hasOverlay)
             {
                 overlay.createOverlay();
