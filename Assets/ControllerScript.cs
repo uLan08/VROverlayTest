@@ -6,7 +6,6 @@ public class ControllerScript : MonoBehaviour {
     SteamVR_TrackedObject trackedObj;
     SteamVR_Controller.Device device;
     public Overlay overlay;
-    bool hasOverlay = false;
 
     void Awake()
     {
@@ -16,19 +15,17 @@ public class ControllerScript : MonoBehaviour {
     void Update()
     {
         device = SteamVR_Controller.Input((int)trackedObj.index);
-        if (device.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu))
+        if (device.GetPressUp(SteamVR_Controller.ButtonMask.System))
         {
-            Debug.Log("pressed menu button");
-            if (!hasOverlay)
+            Debug.Log("pressed system button");
+            if (!overlay.gameObject.activeSelf)
             {
-                overlay.createOverlay();
-                hasOverlay = true;
+                overlay.gameObject.SetActive(true);
 
             }
             else
             {
-                overlay.destroyOverlay();
-                hasOverlay = false;
+                overlay.gameObject.SetActive(false);
             }
         }
     }
