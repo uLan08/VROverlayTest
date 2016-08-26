@@ -117,6 +117,46 @@ public class Overlay : MonoBehaviour
         enabled = false;
     }
 
+    private static bool ComputeIntersection(ulong handle, Vector3 source, Vector3 direction, ref SteamVR_Overlay.IntersectionResults results)
+    {
+        var overlay = OpenVR.Overlay;
+        if (overlay == null) return false;
+
+        var input = new VROverlayIntersectionParams_t
+        {
+            eOrigin = SteamVR_Render.instance.trackingSpace,
+            vSource =
+            {
+                v0 = source.x,
+                v1 = source.y,
+                v2 = -source.z
+            },
+            vDirection =
+            {
+                v0 = direction.x,
+                v1 = direction.y,
+                v2 = -direction.z
+            }
+        };
+
+        var output = new VROverlayIntersectionResults_t();
+        if (!overlay.ComputeOverlayIntersection(handle, ref input, ref output)) return false;
+
+        results.point = new Vector3(output.vPoint.v0, output.vPoint.v1, -output.vPoint.v2);
+        results.normal = new Vector3(output.vNormal.v0, output.vNormal.v1, -output.vNormal.v2);
+        results.UVs = new Vector2(output.vUVs.v0, output.vUVs.v1);
+        results.distance = output.fDistance;
+        return true;
+    }
+
+    public Vector2 DoIntersection(Vector3 source, Vector3 direction)
+    {
+        var result = new SteamVR_Overlay.IntersectionResults();
+        var hit = ComputeIntersection(_overlayHandle, source, direction, ref result);
+        Debug.Log(hit);
+        return result.UVs;
+    }
+
     /// <summary>
     /// Update the Overlay
     /// </summary>
