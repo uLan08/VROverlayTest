@@ -29,15 +29,18 @@ public class ControllerScript : MonoBehaviour {
         }
         if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Debug.Log("asdasd");
-            Debug.Log("controller pos : " + gameObject.transform.position);
-            Debug.Log("controller for : " + gameObject.transform.forward);
+            //Debug.Log("asdasd");
+            //Debug.Log("controller pos : " + gameObject.transform.position);
+            //Debug.Log("controller for : " + gameObject.transform.forward);
+
             //RectTransform rt = (RectTransform)overlay.transform;
             //float width = rt.rect.width;
             //float height = rt.rect.height;
             //Debug.Log("overlay width? " + width);
             //Debug.Log("overlay height? " + height);
-            Debug.Log(overlay.getUVs(gameObject.transform.position, gameObject.transform.forward));
+            var uvs = overlay.getUVs(gameObject.transform.position, gameObject.transform.forward);
+            Debug.Log(uvs.x * 400f);
+            Debug.Log(uvs.y * 256f);
         }
     }
 }
