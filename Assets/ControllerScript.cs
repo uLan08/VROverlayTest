@@ -21,17 +21,23 @@ public class ControllerScript : MonoBehaviour {
             if (!overlay.gameObject.activeSelf)
             {
                 overlay.gameObject.SetActive(true);
-                Debug.Log("controller pos : " + gameObject.transform.position);
-                Debug.Log("controller for : " + gameObject.transform.forward);
-               // RectTransform rt = (RectTransform)overlay.transform;
-             //   Debug.Log("overlay width? " + rt.rect.width);
-             //   Debug.Log("overlay height? " + rt.rect.height);
-                Debug.Log(overlay.DoIntersection(gameObject.transform.position, gameObject.transform.forward));
             }
             else
             {
                 overlay.gameObject.SetActive(false);
             }
+        }
+        if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
+        {
+            Debug.Log("asdasd");
+            Debug.Log("controller pos : " + gameObject.transform.position);
+            Debug.Log("controller for : " + gameObject.transform.forward);
+            //RectTransform rt = (RectTransform)overlay.transform;
+            //float width = rt.rect.width;
+            //float height = rt.rect.height;
+            //Debug.Log("overlay width? " + width);
+            //Debug.Log("overlay height? " + height);
+            Debug.Log(overlay.getUVs(gameObject.transform.position, gameObject.transform.forward));
         }
     }
 }

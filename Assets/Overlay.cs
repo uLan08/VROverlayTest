@@ -149,7 +149,7 @@ public class Overlay : MonoBehaviour
         return true;
     }
 
-    public Vector2 DoIntersection(Vector3 source, Vector3 direction)
+    public Vector2 getUVs(Vector3 source, Vector3 direction)
     {
         var result = new SteamVR_Overlay.IntersectionResults();
         var hit = ComputeIntersection(_overlayHandle, source, direction, ref result);
