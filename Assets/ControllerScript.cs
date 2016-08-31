@@ -23,9 +23,9 @@ public class ControllerScript : MonoBehaviour {
                 overlay.gameObject.SetActive(true);
                 Debug.Log("controller pos : " + gameObject.transform.position);
                 Debug.Log("controller for : " + gameObject.transform.forward);
-                RectTransform rt = (RectTransform)overlay.transform;
-                Debug.Log("overlay width? " + rt.rect.width);
-                Debug.Log("overlay height? " + rt.rect.height);
+               // RectTransform rt = (RectTransform)overlay.transform;
+             //   Debug.Log("overlay width? " + rt.rect.width);
+             //   Debug.Log("overlay height? " + rt.rect.height);
                 Debug.Log(overlay.DoIntersection(gameObject.transform.position, gameObject.transform.forward));
             }
             else
