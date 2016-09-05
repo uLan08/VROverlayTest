@@ -29,7 +29,7 @@ public class ControllerScript : MonoBehaviour {
         cursor.transform.SetParent(canvas.transform);
         cursor.transform.localPosition = Vector3.zero;
         cursor.transform.localRotation = Quaternion.identity;
-        cursor.transform.localScale = Vector3.one / 2;
+        cursor.transform.localScale = Vector3.one / 5;
 
 
     }
@@ -71,7 +71,7 @@ public class ControllerScript : MonoBehaviour {
             var uvs = overlay.getUVs(gameObject.transform.position, gameObject.transform.forward);
             RectTransform rt = (RectTransform)canvas.transform;
             x = uvs.x * 400f;
-            y = uvs.y * 256f;
+            y = (1 - uvs.y) * 256f;
 
             Debug.Log("this is x " + x);
             Debug.Log("this is y " + y);
