@@ -10,6 +10,10 @@ public class ControllerScript : MonoBehaviour {
     public GameObject canvas;
     public Sprite cursorSprite;
     GameObject cursor;
+    GameObject yesButton;
+    Color normalColor;
+    Color highlightedColor;
+    Color pressedColor;
     bool hasOverlay = false;
     float x;
     float y;
@@ -22,7 +26,12 @@ public class ControllerScript : MonoBehaviour {
     void Start()
     {
         cursor = new GameObject("cursor");
-       
+        normalColor = new Color();
+        highlightedColor = new Color();
+        pressedColor = new Color();
+        ColorUtility.TryParseHtmlString("2D4DAA", out normalColor);
+        ColorUtility.TryParseHtmlString("1BCBF9", out highlightedColor);
+        ColorUtility.TryParseHtmlString("", out pressedColor);
         Image image = cursor.AddComponent<Image>();
         image.sprite = cursorSprite;
 
@@ -31,6 +40,8 @@ public class ControllerScript : MonoBehaviour {
         cursor.transform.localRotation = Quaternion.identity;
         cursor.transform.localScale = Vector3.one / 5;
 
+        yesButton = GameObject.FindGameObjectWithTag("Yes");
+        overlay.gameObject.SetActive(false);
 
     }
 
@@ -53,35 +64,37 @@ public class ControllerScript : MonoBehaviour {
         }
         if (device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            //Debug.Log("asdasd");
-            Debug.Log("controller pos : " + gameObject.transform.position);
-            Debug.Log("controller for : " + gameObject.transform.forward);
+ 
 
             //RectTransform rt = (RectTransform)overlay.transform;
             //float width = rt.rect.width;
             //float height = rt.rect.height;
             //Debug.Log("overlay width? " + width);
             //Debug.Log("overlay height? " + height);
-
             // cursor.transform.position = pos;
-
         }
         if (hasOverlay)
         {
             var uvs = overlay.getUVs(gameObject.transform.position, gameObject.transform.forward);
-            RectTransform rt = (RectTransform)canvas.transform;
             x = uvs.x * 400f;
             y = (1 - uvs.y) * 256f;
 
-            Debug.Log("this is x " + x);
-            Debug.Log("this is y " + y);
-            if( x <= 400 && y <= 256)
+            if (x != 0 && y != 256)
             {
                 x -= 200;
                 y -= 128;
             }
             Vector2 pos = new Vector2(x, y);
             cursor.transform.localPosition = pos;
+        }
+        if ((x > -181 && x < -31) && (y < -33 && y > -123))
+        {
+
+            yesButton.GetComponent<Button>().image.color = Color.white;
+        }
+        else
+        {
+            yesButton.GetComponent<Button>().image.color = normalColor;
         }
     }
 }

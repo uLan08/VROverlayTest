@@ -153,7 +153,6 @@ public class Overlay : MonoBehaviour
     {
         var result = new SteamVR_Overlay.IntersectionResults();
         var hit = ComputeIntersection(_overlayHandle, source, direction, ref result);
-        Debug.Log(hit);
         return result.UVs;
     }
 
