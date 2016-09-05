@@ -10,6 +10,7 @@ public class ControllerScript : MonoBehaviour {
     public GameObject canvas;
     public Sprite cursorSprite;
     GameObject cursor;
+    GameObject yesButton;
     bool hasOverlay = false;
     float x;
     float y;
@@ -29,7 +30,10 @@ public class ControllerScript : MonoBehaviour {
         cursor.transform.SetParent(canvas.transform);
         cursor.transform.localPosition = Vector3.zero;
         cursor.transform.localRotation = Quaternion.identity;
-        cursor.transform.localScale = Vector3.one / 2;
+        cursor.transform.localScale = Vector3.one / 5;
+
+        yesButton = GameObject.FindGameObjectWithTag("Yes");
+        
 
 
     }
@@ -71,17 +75,19 @@ public class ControllerScript : MonoBehaviour {
             var uvs = overlay.getUVs(gameObject.transform.position, gameObject.transform.forward);
             RectTransform rt = (RectTransform)canvas.transform;
             x = uvs.x * 400f;
-            y = uvs.y * 256f;
+            y = (1- uvs.y) * 256f;
 
             Debug.Log("this is x " + x);
             Debug.Log("this is y " + y);
-            if( x <= 400 && y <= 256)
-            {
-                x -= 200;
-                y -= 128;
-            }
+            x -= 200;
+            y -= 128;
             Vector2 pos = new Vector2(x, y);
             cursor.transform.localPosition = pos;
+        }
+        if((x > -181 && x < -31) && ( y < -33 && y > -123))
+        {
+            Debug.Log("inside yes button");
+            yesButton.GetComponent<Image>().color = Color.
         }
     }
 }
