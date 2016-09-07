@@ -30,6 +30,16 @@ public class SteamVR_TrackedObject : MonoBehaviour
 		Device15
 	}
 
+    public enum EType
+    {
+        None = -1,
+        HMD,
+        LeftController,
+        RightController
+    }
+
+
+    public EType type;
 	public EIndex index;
 	public Transform origin; // if not set, relative to parent
     public bool isValid = false;
